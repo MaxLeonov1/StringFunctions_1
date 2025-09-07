@@ -204,16 +204,25 @@ char* my_strdup ( const char* string ) {
 
 
 
-size_t my_getline ( char* string, size_t* num_char, FILE* stream ) {
+size_t my_getline ( char** string, size_t* num_char, FILE* stream ) {
 
     size_t num_scan       = 1;
-    char*  symbol         = string;
+    char*  symbol         = *string;
     int    check_symbol   = 0;
     int    local_num_char = 0;
 
     while(1) {
 
         check_symbol = getc(stream);
+
+        if ( *num_char == num_scan + 1 ) {
+
+            *string = (char*)realloc( *string, sizeof(char)*num_scan );
+            //printf ( "\n%p\n", *string);
+            symbol = *string + num_scan;
+            *num_char++;
+
+        }
 
         if ( check_symbol == -1 ||
              check_symbol == '\n' ) {
@@ -222,15 +231,6 @@ size_t my_getline ( char* string, size_t* num_char, FILE* stream ) {
             *(symbol + 1) = '\0';
 
             return num_scan;
-
-        }
-
-        if ( *num_char == num_scan + 1 ) {
-
-            string = (char*)realloc( string, sizeof(char)*num_scan );
-            symbol = string + num_scan;
-            printf("%p\n", string); 
-            num_char++;
 
         }
 
