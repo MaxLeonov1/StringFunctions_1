@@ -206,39 +206,38 @@ char* my_strdup ( const char* string ) {
 
 size_t my_getline ( char** string, size_t* num_char, FILE* stream ) {
 
-    size_t num_scan       = 1;
-    char*  symbol         = *string;
+    size_t num_scan       = 0;
     int    check_symbol   = 0;
-    int    local_num_char = 0;
 
-    while(1) {
+    while ( ( check_symbol = getc(stream) ) != EOF && 
+              check_symbol                  != '\n') {
 
-        check_symbol = getc(stream);
+        if ( num_scan + 1 >= *num_char ) {
 
-        if ( *num_char == num_scan + 1 ) {
-
-            *string = (char*)realloc( *string, sizeof(char)*num_scan );
-            //printf ( "\n%p\n", *string);
-            symbol = *string + num_scan;
-            *num_char++;
+            *num_char *= 2;
+            *string = (char*)realloc( *string, *num_char );
 
         }
 
-        if ( check_symbol == -1 ||
-             check_symbol == '\n' ) {
-
-            *symbol = '\n';
-            *(symbol + 1) = '\0';
-
-            return num_scan;
-
-        }
-
-        *symbol = (char)check_symbol;
-
-        num_scan++;
-        symbol++;
+        (*string)[num_scan++] = (char)check_symbol;
 
     }
+
+    if ( num_scan < *num_char) {
+
+        (*string)[num_scan] = '\n';
+        (*string)[num_scan + 1] = '\0';
+
+    } else {
+
+        *num_char += 2;
+        *string = (char*)realloc( *string, *num_char );
+
+        (*string)[num_scan] = '\n';
+        (*string)[num_scan + 1] = '\0';
+
+    }
+
+    return num_scan;
 
 }
