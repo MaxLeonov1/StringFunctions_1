@@ -304,8 +304,6 @@ char* my_strdup ( const char* string ) {
 
     return my_strcpy ( new_string, string );
 
-    free(new_string);
-
 }
 
 /*-----------------------------------------------------------------------------------------*/
