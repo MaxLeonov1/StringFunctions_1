@@ -8,12 +8,14 @@
 
 int main() {
 
-    const char* test_str_1     = "Hello world";
-    const char  test_char_1    = 'l';
     size_t      str_3_len      = 5;
-    char        test_str_2[10] = "Meow";
+    const char  test_char_1    = 'l';
     FILE*       test_file_1    = fopen("test.txt", "r");
+
+    const char* test_str_1     = "Hello world";
+    char        test_str_2[10] = "Meow";
     char*       test_str_3     = (char*) calloc ( str_3_len, sizeof(char));
+    const char* test_str_4     = "ujqwc-jknqwf1vnea42nwef2"; //-1422
 
     //printf( "%d", my_puts(test_str_1));
 
@@ -35,6 +37,8 @@ int main() {
 
     // printf ( "symbols scaned: %d\n", my_getline(&test_str_3, &str_3_len, test_file_1));
     // printf ( "scaned line: %s", test_str_3);
+
+    // printf ( "number: %d", my_atoi ( test_str_4 ));
 
     return 0;
 }
