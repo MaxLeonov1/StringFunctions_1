@@ -18,7 +18,7 @@ int my_puts ( const char* string ) {
 
     int index = 0;
 
-    if ( string == nullptr ) {
+    if ( string != nullptr ) {
 
         return -1;
 
@@ -50,7 +50,7 @@ int my_puts ( const char* string ) {
 */
 char* my_strchr ( const char* string, int symbol ) {
 
-    assert ( string == nullptr );
+    assert ( string != nullptr );
 
     int index = 0;
 
@@ -72,7 +72,7 @@ char* my_strchr ( const char* string, int symbol ) {
 */
 int my_strlen( const char* string ) {
 
-    assert ( string == nullptr );
+    assert ( string != nullptr );
 
     int index = 0;
 
@@ -96,8 +96,8 @@ int my_strlen( const char* string ) {
 */
 char* my_strcpy ( char* string_1, const char* string_2 ) {
 
-    assert ( string_1 == nullptr ||
-             string_2 == nullptr);
+    assert ( string_1 != nullptr &&
+             string_2 != nullptr);
 
     char* symbol = string_1;
 
@@ -136,8 +136,8 @@ char* my_strcpy ( char* string_1, const char* string_2 ) {
 */
 char* my_strncpy ( char* string_1, const char* string_2, size_t number ) {
 
-    assert ( string_1 == nullptr ||
-             string_2 == nullptr);
+    assert ( string_1 != nullptr &&
+             string_2 != nullptr);
 
     char* symbol = string_1;
     size_t index = 0;
@@ -177,8 +177,8 @@ char* my_strncpy ( char* string_1, const char* string_2, size_t number ) {
 */
 char* my_strcat ( char* string_1, const char* string_2 ) {
 
-    assert ( string_1 == nullptr ||
-             string_2 == nullptr);
+    assert ( string_1 != nullptr &&
+             string_2 != nullptr);
 
     char* symbol = string_1;
 
@@ -216,8 +216,8 @@ char* my_strcat ( char* string_1, const char* string_2 ) {
 */
 char* my_strncat ( char* string_1, const char* string_2, size_t number ) {
 
-    assert ( string_1 == nullptr ||
-             string_2 == nullptr );
+    assert ( string_1 != nullptr &&
+             string_2 != nullptr );
 
     size_t index = 0;
     char* symbol = string_1;
@@ -257,7 +257,7 @@ char* my_strncat ( char* string_1, const char* string_2, size_t number ) {
 */ 
 char* my_fgets ( char* string, int number_chars, FILE *stream ) {
 
-    assert ( string == nullptr );
+    assert ( string != nullptr );
  
     char* symbol       = string;
     int   index        = 0;
@@ -296,7 +296,9 @@ char* my_fgets ( char* string, int number_chars, FILE *stream ) {
 */
 char* my_strdup ( const char* string ) {
 
-    assert ( string == nullptr );
+    printf ( "%p", string);
+
+    assert ( string != nullptr );
 
     int num_char = my_strlen (string) + 1;
 
@@ -324,7 +326,7 @@ size_t my_getline ( char** string, size_t* num_char, FILE* stream ) {
     size_t num_scan       = 0;
     int    check_symbol   = 0;
 
-    if ( *string == nullptr && *num_char == 0) { // Выделение памяти в случае если память под строку не аллоцированна
+    if ( *string == nullptr && *num_char == 0 ) { // Выделение памяти в случае если память под строку не аллоцированна
 
         *num_char = 8;
         *string = (char*)calloc( *num_char, sizeof(char) );
@@ -345,7 +347,7 @@ size_t my_getline ( char** string, size_t* num_char, FILE* stream ) {
 
     }
 
-    if ( num_scan < *num_char) { // Добавление '\0' и '\n' в конец строки
+    if ( num_scan < *num_char ) { // Добавление '\0' и '\n' в конец строки
 
         (*string)[num_scan] = '\n';
         (*string)[num_scan + 1] = '\0';
@@ -377,10 +379,10 @@ size_t my_getline ( char** string, size_t* num_char, FILE* stream ) {
 */
 int my_atoi ( const char* string ) {
 
+    assert ( string != nullptr );
+
     int negative = 0;
     int result   = 0;
-
-    assert ( string == nullptr );
 
     while ( *string != '\n' && *string != ' ' ) {
 
